@@ -13,7 +13,7 @@ class Graph:
 
 		while que:
 			u = que.pop(0)
-			for ind, val in enumrate(self.graph[u]):
+			for ind, val in enumerate(self.graph[u]):
 				if(visited[ind] == False and val>0):
 					que.append(ind)
 					visited[ind]= True
@@ -29,7 +29,9 @@ class Graph:
 			path_flow = float("Inf")
 			s = sink
 			while(s != source):
-				path_flow = min (path_flow, self.graph[parent[s][s]])
+				if(path_flow > self.graph[parent[s][s]]):
+					path_flow = self.graph[parent[s][s]]
+				#path_flow = min(path_flow, self.graph[parent[s][s]])
 				s = parent[s]
 
 			max_flow += path_flow
@@ -56,4 +58,4 @@ graph = [[0, 16, 13, 0, 0, 0],
 g = Graph(graph)
 source = 0; sink = 5
 
-print("The maximum possible flow is %d" % g.FordFulk(source,sink))
+print("The maximum possible flow is {0}".format(g.FordFulk(source,sink)))
